@@ -15,7 +15,8 @@ private:
     long acct_amt;
 
 public:
-    static vector<Account *> v_list; // Used to load all account info to heap memory
+    static vector<Account *> v_list;
+
     Account(string first_name, string last_name, long acct_amt);
 
     Account(long account_num, string first_name, string last_name, long acct_amt);
@@ -205,7 +206,10 @@ void Account::open() {
     long acct_amt;
     cout << "Account Amount: " << endl;
     cin >> acct_amt;
-    v_list.push_back(new Account(first_name, last_name, acct_amt));
+    v_list.push_back(new Account("", "", 0));
+    v_list.back()->setFirstName(first_name);
+    v_list.back()->setLastName(last_name);
+    v_list.back()->setAccountAmount(acct_amt);
     cout << *v_list.back() << endl;
     // Save to a txt file
     ofstream ofs("bank_ledger.txt", ios::app);
