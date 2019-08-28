@@ -8,7 +8,11 @@
 #include <vector>
 #include <string>
 
-using namespace std;
+using std::vector;
+using std::string;
+using std::ifstream;
+using std::ofstream;
+using std::ostream;
 
 class Account {
 private:

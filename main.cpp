@@ -2,11 +2,14 @@
 #include <vector>
 #include "Account.h"
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::vector;
 
 int main() {
     int option = 0;
-    int *const  option_ptr= &option;
+    int *const option_ptr = &option;
     cout << "\n*WELCOME TO BANKING SYSTEM*" << endl;
     while (*option_ptr != 7) {
         cout << "\nSelect one option below: "

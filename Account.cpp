@@ -8,8 +8,15 @@
 #include <vector>
 #include <algorithm>
 
-
-using namespace std;
+using std::endl;
+using std::cout;
+using std::cin;
+using std::ios;
+using std::vector;
+using std::ifstream;
+using std::ofstream;
+using std::string;
+using std::ostream;
 
 vector<Account *> Account::v_list = Account::getAll();               // Get all account info
 long Account::cumulative_acct_num = Account::getLastAccountNumber(); // Get the latest account number
@@ -45,7 +52,7 @@ void Account::setLastName(const string &ln) const {
     this->last_name = ln;
 }
 
-void Account::setAccountAmount(const long &account_amt) const{
+void Account::setAccountAmount(const long &account_amt) const {
     this->acct_amt = account_amt;
 }
 
