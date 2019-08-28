@@ -15,21 +15,21 @@ vector<Account *> Account::v_list = Account::getAll();               // Get all 
 long Account::cumulative_acct_num = Account::getLastAccountNumber(); // Get the latest account number
 
 // Constructors
-Account::Account(string first_name, string last_name, long acct_amt) {
-    this->first_name = std::move(first_name);
-    this->last_name = std::move(last_name);
+Account::Account(const string &first_name, const string &last_name, const long &acct_amt) {
+    this->first_name = first_name;
+    this->last_name = last_name;
     this->acct_amt = acct_amt;
     this->acct_num = ++Account::cumulative_acct_num;
 }
 
-Account::Account(long account_num, string first_name, string last_name, long acct_amt) {
-    this->first_name = std::move(first_name);
-    this->last_name = std::move(last_name);
+Account::Account(const long &account_num, const string &first_name, const string &last_name, const long &acct_amt) {
+    this->first_name = first_name;
+    this->last_name = last_name;
     this->acct_amt = acct_amt;
     this->acct_num = account_num;
 }
 
-Account::Account(Account &a) {
+Account::Account(const Account &a) {
     first_name = a.getFirstName();
     last_name = a.getLastName();
     acct_amt = a.getAccountAmount();
@@ -37,32 +37,32 @@ Account::Account(Account &a) {
 }
 
 // Mutator
-void Account::setFirstName(string f_name) {
-    this->first_name = std::move(f_name);
+void Account::setFirstName(const string &fn) const {
+    this->first_name = fn;
 }
 
-void Account::setLastName(string l_name) {
-    this->last_name = std::move(l_name);
+void Account::setLastName(const string &ln) const {
+    this->last_name = ln;
 }
 
-void Account::setAccountAmount(long account_amt) {
+void Account::setAccountAmount(const long &account_amt) const{
     this->acct_amt = account_amt;
 }
 
-// Accessors
-long Account::getAccountNumber() {
+// Accessor
+const long &Account::getAccountNumber() const {
     return acct_num;
 }
 
-string Account::getFirstName() {
+const string &Account::getFirstName() const {
     return first_name;
 }
 
-string Account::getLastName() {
+const string &Account::getLastName() const {
     return last_name;
 }
 
-long Account::getAccountAmount() {
+const long &Account::getAccountAmount() const {
     return acct_amt;
 }
 
@@ -106,7 +106,7 @@ void Account::open() {
     ofs.close();
 }
 
-Account *Account::searchByAccountNumber(long acct_num) {
+Account *Account::searchByAccountNumber(const long &acct_num) {
     vector<Account *>::iterator itr;
     //    https://stackoverflow.com/questions/15598607/when-should-i-use-stdbind#15598734
     itr = find_if(v_list.begin(), v_list.end(),
@@ -218,7 +218,7 @@ void Account::showAll() {
 Account::~Account() = default;
 
 // Friend Functions
-ifstream &operator>>(ifstream &ifs, vector<Account *> &v_list) {
+ifstream const &operator>>(ifstream &ifs, vector<Account *> &v_list) {
     long account_num;
     string first_name;
     string last_name;
@@ -228,7 +228,7 @@ ifstream &operator>>(ifstream &ifs, vector<Account *> &v_list) {
     return ifs;
 }
 
-ostream &operator<<(ostream &out, Account &a) {
+ostream &operator<<(ostream &out, const Account &a) {
     out << "\nAccount Number: " << a.getAccountNumber() << endl
         << "First Name: " << a.getFirstName() << endl
         << "Last Name: " << a.getLastName() << endl
@@ -236,7 +236,7 @@ ostream &operator<<(ostream &out, Account &a) {
     return out;
 }
 
-ofstream &operator<<(ofstream &ofs, Account &a) {
+const ofstream &operator<<(ofstream &ofs, const Account &a) {
     ofs << "\n"
         << a.getAccountNumber() << endl
         << a.getFirstName() << endl

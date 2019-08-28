@@ -7,57 +7,59 @@
 
 #include <vector>
 #include <string>
+
 using namespace std;
 
 class Account {
 private:
     static long cumulative_acct_num;
     long acct_num;
-    string first_name;
-    string last_name;
-    long acct_amt;
+    mutable string first_name;
+    mutable string last_name;
+    mutable long acct_amt;
 
 public:
     static vector<Account *> v_list;
 
-    Account(string first_name, string last_name, long acct_amt);
+    Account(const string &first_name, const string &last_name, const long &acct_amt);
 
-    Account(long account_num, string first_name, string last_name, long acct_amt);
+    Account(const long &account_num, const string &first_name, const string &last_name, const long &acct_amt);
 
     Account() : Account(getAccountNumber(), "", "", 0L) {};
 
-    Account(Account &a);
+    Account(const Account &a);
 
-    void setFirstName(string f_name);
+    void setFirstName(const string &fn) const;
 
-    void setLastName(string l_name);
+    void setLastName(const string &ln) const;
 
-    void setAccountAmount(long account_amt);
+    void setAccountAmount(const long &account_amt) const;
 
-    long getAccountNumber();
+    const long &getAccountNumber() const;
 
-    string getFirstName();
+    const string &getFirstName() const;
 
-    string getLastName();
+    const string &getLastName() const;
 
-    long getAccountAmount();
+    const long &getAccountAmount() const;
 
     static long getLastAccountNumber(); // Retrieve account info and get the latest account number
+
     static vector<Account *> getAll();
 
-    friend ifstream &operator>>(ifstream &ifs, vector<Account *> &v_list);
+    friend const ifstream &operator>>(ifstream &ifs, vector<Account *> &v_list);
 
-    friend ostream &operator<<(ostream &out, Account &a);
+    friend ostream &operator<<(ostream &out, const Account &a);
 
-    friend ofstream &operator<<(ofstream &ofs, Account &a);
+    friend const ofstream &operator<<(ofstream &ofs, const Account &a);
 
     static void open();
 
-    static bool compareAccountNumber(Account *acct_ptr, long acct_num) {
+    static bool compareAccountNumber(const Account *acct_ptr, const long &acct_num) {
         return (*acct_ptr).getAccountNumber() == acct_num;
     }
 
-    static Account *searchByAccountNumber(long acct_num);
+    static Account *searchByAccountNumber(const long &acct_num);
 
     static void balance();
 
