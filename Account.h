@@ -25,9 +25,9 @@ private:
 public:
     static vector<Account *> v_list;
 
-    Account(const string &first_name, const string &last_name, const long &acct_amt);
+    Account(string first_name, string last_name, const long &acct_amt);
 
-    Account(const long &account_num, const string &first_name, const string &last_name, const long &acct_amt);
+    Account(const long &account_num, string first_name, string last_name, const long &acct_amt);
 
     Account() : Account(getAccountNumber(), "", "", 0L) {};
 

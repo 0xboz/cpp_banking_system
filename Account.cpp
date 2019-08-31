@@ -21,28 +21,26 @@ using std::ostream;
 vector<Account *> Account::v_list = Account::getAll();               // Get all account info
 long Account::cumulative_acct_num = Account::getLastAccountNumber(); // Get the latest account number
 
-// Constructors
-Account::Account(const string &first_name, const string &last_name, const long &acct_amt) {
-    this->first_name = first_name;
-    this->last_name = last_name;
-    this->acct_amt = acct_amt;
-    this->acct_num = ++Account::cumulative_acct_num;
+// Constructor
+// Use member initialization list instead of assignment
+Account::Account(string first_name, string last_name, const long &acct_amt) :
+        first_name(std::move(first_name)),  // https://stackoverflow.com/questions/16724657/why-do-we-copy-then-move
+        last_name(std::move(last_name)),
+        acct_amt(acct_amt),
+        acct_num(++cumulative_acct_num) {
 }
-
-Account::Account(const long &account_num, const string &first_name, const string &last_name, const long &acct_amt) {
-    this->first_name = first_name;
-    this->last_name = last_name;
-    this->acct_amt = acct_amt;
-    this->acct_num = account_num;
+Account::Account(const long &account_num, string first_name, string last_name, const long &acct_amt) :
+        first_name(std::move(first_name)),
+        last_name(std::move(last_name)),
+        acct_amt(acct_amt),
+        acct_num(account_num) {
 }
-
-Account::Account(const Account &a) {
-    first_name = a.getFirstName();
-    last_name = a.getLastName();
-    acct_amt = a.getAccountAmount();
-    this->acct_num = ++cumulative_acct_num;
+Account::Account(const Account &a) :
+        first_name(a.getFirstName()),
+        last_name(a.getLastName()),
+        acct_amt(a.getAccountAmount()),
+        acct_num(++cumulative_acct_num) {
 }
-
 // Mutator
 void Account::setFirstName(const string &fn) const {
     this->first_name = fn;
